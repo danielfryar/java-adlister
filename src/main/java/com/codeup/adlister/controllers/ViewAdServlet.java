@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet("/ads/view")
 public class ViewAdServlet extends HttpServlet {
@@ -18,16 +16,10 @@ public class ViewAdServlet extends HttpServlet {
         String idStr = request.getParameter("id");
         long id = Long.parseLong(idStr);
 
-        // this is creating a list of ads from one ad to see that it works
         Ad ad = DaoFactory.getAdsDao().getById(id);
-        List<Ad> fake = new ArrayList<>();
-        fake.add(ad);
-        System.out.println(ad.getId());
-        System.out.println(ad.getTitle());
-        System.out.println(ad.getDescription());
 
-        request.setAttribute("ads", fake);
+        request.setAttribute("ad", ad);
         System.out.println(ad);
-        request.getRequestDispatcher("/WEB-INF/ads/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/ads/view.jsp").forward(request, response);
     }
 }
